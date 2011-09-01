@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.6"?>
+
+<target name="m2e-e36">
+<locations>
+<location includeAllPlatforms="false" includeMode="planner" type="InstallableUnit">
+	<unit id="org.eclipse.sdk.ide" version="0.0.0"/>
+	<repository location="http://download.eclipse.org/releases/helios"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" type="InstallableUnit">
+	<unit id="org.eclipse.swtbot.eclipse.feature.group" version="0.0.0"/>
+	<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="0.0.0"/>
+	<unit id="org.eclipse.swtbot.feature.group" version="0.0.0"/>
+	<unit id="org.eclipse.swtbot.ide.feature.group" version="0.0.0"/>
+	<unit id="org.eclipse.swtbot.eclipse.test.junit3.feature.group" version="0.0.0"/>
+	<unit id="org.eclipse.swtbot.eclipse.test.junit4.feature.group" version="0.0.0"/>
+	<repository location="http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site"/>
+</location>
+<location includeAllPlatforms="false" includeMode="slicer" type="InstallableUnit">
+	<unit id="org.eclipse.m2e.sdk.feature.feature.group" version="1.0.0.20110607-2117"/>
+	<unit id="org.eclipse.m2e.feature.feature.group" version="1.0.0.20110607-2117"/>
+	<unit id="org.eclipse.m2e.site.feature.group" version="1.0.0.20110607-2117"/>
+	<unit id="org.eclipse.m2e.logback.feature.feature.group" version="1.0.0.20110607-2117"/>
+	<repository location="http://download.eclipse.org/technology/m2e/releases/"/>
+</location>
+</locations>
+</target>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description>Maven integration for QueryDSL</description>
+   <feature url="features/org.maven.ide.querydsl.feature_0.0.1.qualifier.jar" id="org.maven.ide.querydsl.feature" version="0.0.1.qualifier">
+      <category name="m2e-querydsl"/>
+   </feature>
+   <category-def name="m2e-querydsl" label="Maven integration for QueryDSL">
+      <description>
+         Optional Maven (M2E) integration for QueryDSL.
+      </description>
+   </category-def>
+</site>

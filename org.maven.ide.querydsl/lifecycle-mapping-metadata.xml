@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lifecycleMappingMetadata>
+  <pluginExecutions>
+    <pluginExecution>
+      <pluginExecutionFilter>
+		<groupId>com.mysema.maven</groupId>
+		<artifactId>maven-apt-plugin</artifactId>
+		<versionRange>[1.0,)</versionRange>
+        <goals>
+          <goal>process</goal>
+		</goals>
+      </pluginExecutionFilter>
+      <action>
+        <configurator>
+          <id>org.maven.ide.querydsl.AptConfigurator</id>
+        </configurator>
+      </action>
+    </pluginExecution>
+   </pluginExecutions>
+</lifecycleMappingMetadata>
+
+

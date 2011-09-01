@@ -1,0 +1,96 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>org.maven.ide.querydsl.parent</artifactId>
+        <groupId>org.maven.ide.querydsl</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <groupId>org.maven.ide.querydsl.feature</groupId>
+    <artifactId>org.maven.ide.querydsl.feature</artifactId>
+    <packaging>eclipse-feature</packaging>
+    <name>Maven integration for QueryDSL (optional)</name>
+    <description>Configures QueryDSL (optional) in a maven based project.</description>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-packaging-plugin</artifactId>
+                <configuration>
+                    <deployableFeature>true</deployableFeature>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-p2-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>categorization</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>category-p2-metadata</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <metadataRepositoryName>Maven Integration for QueryDSL</metadataRepositoryName>
+                    <artifactRepositoryName>Maven Integration for QueryDSL</artifactRepositoryName>
+                    <compressRepository>false</compressRepository>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>publish-site</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>maven-upload-plugin</artifactId>
+                        <version>0.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>publish-site</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>upload-file</goal>
+                                </goals>
+                                <configuration>
+                                    <file>${project.build.directory}/${project.artifactId}-${project.version}-site.zip</file>
+                                    <serverId>forge-releases</serverId>
+                                    <repositoryUrl>${m2e.site-compressed}</repositoryUrl>
+                                    <repositoryPath>m2e-querydsl/${unqualifiedVersion}/N/${unqualifiedVersion}.${buildQualifier}</repositoryPath>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

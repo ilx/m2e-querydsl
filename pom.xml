@@ -1,0 +1,127 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>forge-parent</artifactId>
+        <groupId>org.sonatype.forge</groupId>
+        <version>10</version>
+    </parent>
+    <groupId>org.maven.ide.querydsl</groupId>
+    <artifactId>org.maven.ide.querydsl.parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Maven integration for QueryDSL apt plugin (Parent).</name>
+    <description>Integrates QueryDSL apt processor with m2e lifecycle in eclipse.</description>
+
+
+    <properties>
+        <tycho-version>0.12.0</tycho-version>
+        <target.platform>m2e-e37</target.platform>
+        <version.versions-maven-plugin>1.2</version.versions-maven-plugin>
+    </properties>
+
+    <modules>
+        <module>org.maven.ide.querydsl.target-platform</module>
+        <module>org.maven.ide.querydsl</module>
+        <module>org.maven.ide.querydsl.feature</module>
+    </modules>
+<!--
+    <modules>
+        <module>org.maven.ide.querydsl</module>
+        <module>org.maven.ide.querydsl.feature</module>
+        <module>org.maven.ide.querydsl.tests</module>
+    </modules>
+ -->
+
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${version.versions-maven-plugin}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-versions-plugin</artifactId>
+                <version>${tycho-version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-maven-plugin</artifactId>
+                <version>${tycho-version}</version>
+                <extensions>true</extensions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>target-platform-configuration</artifactId>
+                <version>${tycho-version}</version>
+                <configuration>
+                    <resolver>p2</resolver>
+                    <target>
+                        <artifact>
+                            <groupId>org.maven.ide.querydsl</groupId>
+                            <artifactId>org.maven.ide.querydsl.target-platform</artifactId>
+                            <version>${project.version}</version>
+                            <classifier>${target.platform}</classifier>
+                        </artifact>
+                    </target>
+                    <ignoreTychoRepositories>true</ignoreTychoRepositories>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.eclipse.tycho</groupId>
+                    <artifactId>maven-osgi-test-plugin</artifactId>
+                    <version>${tycho-version}</version>
+                    <configuration>
+                        <useUIHarness>true</useUIHarness>
+                        <includes>
+                            <include>**/*Test.java</include>
+                        </includes>
+                        <argLine>${tycho.test.jvmArgs}</argLine>
+                        <!-- kill test JVM it tests take more than 10 minutes (600 seconds)
+                          to finish -->
+                        <forkedProcessTimeoutInSeconds>7200</forkedProcessTimeoutInSeconds>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>sun-jvm</id>
+            <activation>
+                <property>
+                    <name>java.vendor.url</name>
+                    <value>http://java.sun.com/</value>
+                </property>
+            </activation>
+            <properties>
+                <tycho.test.jvmArgs>-Xmx800m -XX:MaxPermSize=256m</tycho.test.jvmArgs>
+            </properties>
+        </profile>
+        <profile>
+            <id>osx</id>
+            <activation>
+                <property>
+                    <name>java.vendor.url</name>
+                    <value>http://www.apple.com/</value>
+                </property>
+            </activation>
+            <properties>
+                <tycho.test.jvmArgs>-Xmx800m -XX:MaxPermSize=256m -Dosgi.ws=cocoa -XstartOnFirstThread</tycho.test.jvmArgs>
+                <osgi.ws>cocoa</osgi.ws>
+            </properties>
+        </profile>
+    </profiles>
+
+
+</project>
