@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.6"?>
+
+<target includeMode="feature" name="m2e-e37-local" sequenceNumber="22">
+<locations>
+	<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<unit id="org.eclipse.jdt.feature.group" />
+		<repository location="http://localhost/eclipse/indigo/indigo/"/>
+	</location>
+	<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<repository location="http://localhost/eclipse/tools/orbit/downloads/drops/R20120119162704/repository/"/>
+	</location>
+</locations>
+</target>

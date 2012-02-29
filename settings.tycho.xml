@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0
+                      http://maven.apache.org/xsd/settings-1.1.0.xsd">
+    <localRepository>C:\Java\tycho-maven-repository</localRepository>
+    <!-- maven settings reference can be found at: http://maven.apache.org/ref/3.0.4/maven-settings/settings.html -->
+	<!-- username and password are important for local nexus repo - otherwise publish will NOT work -->
+    <servers>
+        <server>
+            <id>snapshots</id>
+            <username>admin</username>
+            <password>xxx</password>
+        </server>
+        <server>
+            <id>thirdparty</id>
+            <username>deployment</username>
+            <password>xxx</password>
+        </server>
+    </servers>
+    <mirrors>
+        <mirror>
+			<!--This is used to direct the public snapshots repo in the profile below
+				over to a different nexus group -->
+            <id>nexus-public-snapshots</id>
+            <mirrorOf>public-snapshots</mirrorOf>
+            <url>http://localhost:8081/nexus/content/groups/public-snapshots</url>
+        </mirror>
+        <mirror>
+            <id>nexus</id>
+            <mirrorOf>central,spring-release</mirrorOf>
+            <url>http://localhost:8081/nexus/content/groups/public</url>
+        </mirror>
+        <mirror>
+            <id>apache-local</id>
+            <mirrorOf>apache</mirrorOf>
+            <url>http://localhost:8081/nexus/content/repositories/apache</url>
+        </mirror>
+        <mirror>
+            <id>apache-snapshots-local</id>
+            <mirrorOf>apache-snapshots,apache.snapshots</mirrorOf>
+            <url>http://localhost:8081/nexus/content/groups/apache-group</url>
+        </mirror>
+        <mirror>
+            <id>codehaus.snapshots-local</id>
+            <mirrorOf>codehaus.snapshots</mirrorOf>
+            <url>http://localhost:8081/nexus/content/repositories/codehaus-snapshots</url>
+        </mirror>
+        <mirror>
+            <id>sonatype-forge-local</id>
+            <mirrorOf>sonatype-forge</mirrorOf>
+            <url>http://localhost:8081/nexus/content/repositories/sonatype-forge-local/</url>
+        </mirror>
+        <mirror>
+            <id>indigo-local</id>
+            <mirrorOf>indigo</mirrorOf>
+<!--             <url>http://localhost/eclipse/indigo/indigo</url> -->
+            <url>file:///${local.repo}/indigo/indigo</url>
+            <layout>p2</layout>
+            <mirrorOfLayouts>p2</mirrorOfLayouts>
+        </mirror>
+        <mirror>
+            <id>platform-e37-local</id>
+            <mirrorOf>platform-e37</mirrorOf>
+<!--             <url>http://localhost/eclipse/platform-e37/3.7</url> -->
+            <url>file:///${local.repo}/platform-e37/3.7</url>
+            <layout>p2</layout>
+            <mirrorOfLayouts>p2</mirrorOfLayouts>
+        </mirror>
+        <mirror>
+            <id>m2e-local</id>
+            <mirrorOf>m2e</mirrorOf>
+            <url>http://localhost/eclipse/indigo/m2e/releases</url>
+            <layout>p2</layout>
+            <mirrorOfLayouts>p2</mirrorOfLayouts>
+        </mirror>
+        <mirror>
+            <id>orbit-local</id>
+            <mirrorOf>orbit</mirrorOf>
+            <url>file:///${local.repo}/tools/orbit/downloads/drops/R20120119162704/repository</url>
+            <layout>p2</layout>
+            <mirrorOfLayouts>p2</mirrorOfLayouts>
+        </mirror>
+		<!--This sends everything else to /public -->
+		<!-- 		<mirror> -->
+		<!-- 			<id>others</id> -->
+		<!-- 			<mirrorOf>*</mirrorOf> -->
+		<!-- 			<url>http://localhost:8081/nexus/content/groups/public</url> -->
+		<!-- 		</mirror> -->
+    </mirrors>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>http://central</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>thirdparty</id>
+                    <url>http://localhost:8081/nexus/content/repositories/thirdparty</url>
+                </repository>
+                <repository>
+                    <id>central</id>
+                    <name>Central maven2 repo</name>
+                    <url>http://repo1.maven.org/maven2</url>
+                </repository>
+                <repository>
+                    <id>apache-snapshots</id>
+                    <name>Apache maven2 repo</name>
+                    <url>https://repository.apache.org/content/groups/snapshots-group</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>ignore</checksumPolicy>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                </repository>
+                <repository>
+                    <id>apache</id>
+                    <name>Apache maven2 repo</name>
+                    <url>https://repository.apache.org/content/groups/public</url>
+                </repository>
+                <repository>
+                    <id>snapshots</id>
+                    <name>Snapshots</name>
+                    <url>http://localhost:8081/nexus/content/repositories/snapshots</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>central</id>
+                    <name>central maven repo</name>
+                    <url>http://repo1.maven.org/maven2</url>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>apache.snapshots</id>
+                    <name>Apache Snapshots Repository</name>
+                    <url>https://repository.apache.org/content/groups/snapshots-group</url>
+                    <layout>default</layout>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <checksumPolicy>ignore</checksumPolicy>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>codehaus.snapshots</id>
+                    <name>Codehaus Snapshots Repository</name>
+                    <url>http://snapshots.repository.codehaus.org</url>
+                    <layout>default</layout>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>ignore</checksumPolicy>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
+        <profile>
+            <id>tycho-indigo</id>
+            <repositories>
+                <repository>
+                    <id>platform-e37</id>
+                    <url>http://download.eclipse.org/eclipse/updates/3.7</url>
+                    <name>Indigo updates repo</name>
+                    <layout>p2</layout>
+                </repository>
+                <repository>
+                    <id>indigo</id>
+                    <url>http://download.eclipse.org/releases/indigo</url>
+                    <name>Indigo repo</name>
+                    <layout>p2</layout>
+                </repository>
+            </repositories>
+        </profile>
+
+        <profile>
+            <id>m2e</id>
+            <repositories>
+                <repository>
+                    <id>m2e</id>
+                    <url>http://download.eclipse.org/technology/m2e/releases/</url>
+                    <layout>p2</layout>
+                </repository>
+            </repositories>
+        </profile>
+        
+        <profile>
+            <id>orbit</id>
+            <repositories>
+                <repository>
+                    <id>orbit</id>
+                    <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20120119162704/repository</url>
+                    <layout>p2</layout>
+                </repository>
+            </repositories>
+        </profile>
+
+        <profile>
+            <id>sonatype-forge</id>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>sonatype-forge</id>
+                    <name>Sonatype forge repo</name>
+                    <url>http://repository.sonatype.org/content/groups/forge</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>default</activeProfile>
+        <activeProfile>dev</activeProfile>
+        <activeProfile>tycho-indigo</activeProfile>
+        <activeProfile>m2e</activeProfile>
+        <activeProfile>orbit</activeProfile>
+    </activeProfiles>
+
+</settings>
