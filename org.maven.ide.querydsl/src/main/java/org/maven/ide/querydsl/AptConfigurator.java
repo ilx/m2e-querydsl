@@ -17,7 +17,9 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.repository.metadata.ArtifactMetadata;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.apt.core.util.AptConfig;
 import org.eclipse.jdt.apt.core.util.IFactoryPath;
 import org.eclipse.jdt.core.IJavaProject;
@@ -34,8 +36,8 @@ import org.slf4j.LoggerFactory;
  * @author Ivica Loncar
  */
 public class AptConfigurator extends AbstractJavaProjectConfigurator {
-
-    private final Logger log = LoggerFactory.getLogger(AptConfigurator.class);
+	private static final String M2_REPO = "M2_REPO";
+	private static final Logger log = LoggerFactory.getLogger(AptConfigurator.class);
 
     //    /**
     //     * @author Michael Glauche (http://glauche.de/)
@@ -66,6 +68,7 @@ public class AptConfigurator extends AbstractJavaProjectConfigurator {
             List<ArtifactRepository> remoteArtifactRepositories = p_request.getMavenProject().getRemoteArtifactRepositories();
             IMaven maven = MavenPlugin.getMaven();
 
+            IPath m2RepoVar = JavaCore.getClasspathVariable(M2_REPO);
             IFactoryPath factoryPath = AptConfig.getFactoryPath(javaProject);
 
             ArtifactMetadata[] artifactsMetadata = queryDslConfiguration.getProcessorArtifacts();
@@ -77,8 +80,14 @@ public class AptConfigurator extends AbstractJavaProjectConfigurator {
                 if ((file == null) || !file.exists() || !file.canRead()) {
                     throw new IllegalStateException("Cannot find file for artifact " + artifact + " file:" + file);
                 }
-
-                factoryPath.addExternalJar(file);
+                String filePath = file.getAbsolutePath();
+                IPath path = Path.fromOSString(filePath);
+                
+                IPath relativeToM2Repo = path.makeRelativeTo(m2RepoVar);
+                
+                IPath jarPath = Path.fromOSString("M2_REPO").append(relativeToM2Repo);
+                
+                factoryPath.addVarJar(jarPath);
             }
 
             AptConfig.setFactoryPath(javaProject, factoryPath);
