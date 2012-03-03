@@ -4,7 +4,7 @@
 <target name="m2e-e37" sequenceNumber="13">
 <locations>
 	<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-		<repository location="http://download.eclipse.org/eclipse/tools/orbit/downloads/drops/R20120119162704/repository/"/>
+		<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20120119162704/repository"/>
 	</location>
 
 	<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">

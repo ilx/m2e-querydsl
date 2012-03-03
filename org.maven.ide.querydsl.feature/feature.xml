@@ -2,7 +2,7 @@
 <feature
       id="org.maven.ide.querydsl.feature"
       label="%featureName"
-      version="0.0.3.qualifier"
+      version="0.0.2"
       provider-name="%providerName">
 
    <description url="%descriptionURL">

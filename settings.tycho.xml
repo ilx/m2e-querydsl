@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0
                       http://maven.apache.org/xsd/settings-1.1.0.xsd">
-    <localRepository>C:\Java\tycho-maven-repository</localRepository>
+    <localRepository>tycho-maven-repository</localRepository>
     <!-- maven settings reference can be found at: http://maven.apache.org/ref/3.0.4/maven-settings/settings.html -->
 	<!-- username and password are important for local nexus repo - otherwise publish will NOT work -->
     <servers>
@@ -54,30 +54,28 @@
         <mirror>
             <id>indigo-local</id>
             <mirrorOf>indigo</mirrorOf>
-<!--             <url>http://localhost/eclipse/indigo/indigo</url> -->
-            <url>file:///${local.repo}/indigo/indigo</url>
+            <url>${local.repo}/releases/indigo</url>
             <layout>p2</layout>
             <mirrorOfLayouts>p2</mirrorOfLayouts>
         </mirror>
         <mirror>
             <id>platform-e37-local</id>
             <mirrorOf>platform-e37</mirrorOf>
-<!--             <url>http://localhost/eclipse/platform-e37/3.7</url> -->
-            <url>file:///${local.repo}/platform-e37/3.7</url>
+            <url>${local.repo}/eclipse/updates/3.7</url>
             <layout>p2</layout>
             <mirrorOfLayouts>p2</mirrorOfLayouts>
         </mirror>
         <mirror>
             <id>m2e-local</id>
             <mirrorOf>m2e</mirrorOf>
-            <url>http://localhost/eclipse/indigo/m2e/releases</url>
+            <url>${local.repo}/technology/m2e/releases</url>
             <layout>p2</layout>
             <mirrorOfLayouts>p2</mirrorOfLayouts>
         </mirror>
         <mirror>
             <id>orbit-local</id>
             <mirrorOf>orbit</mirrorOf>
-            <url>file:///${local.repo}/tools/orbit/downloads/drops/R20120119162704/repository</url>
+            <url>${local.repo}/tools/orbit/downloads/drops/R20120119162704/repository</url>
             <layout>p2</layout>
             <mirrorOfLayouts>p2</mirrorOfLayouts>
         </mirror>

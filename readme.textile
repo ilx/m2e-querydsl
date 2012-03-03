@@ -1,4 +1,38 @@
-h1. Setup development environment
+h1  Where to download
+
+
+h1. Developers guide
+
+h2. Build
+
+@mvn package@
+
+h2. Release a new version
+
+@mvn -s settings.tycho.xml -Dlocal.repo=file:///media/sda2/Java/eclipse/mirrors org.eclipse.tycho:tycho-versions-plugin:set-version  -DnewVersion=0.0.2@
+
+h3. Using target platform with local repos
+
+Clean projects:
+@mvn -X -s settings.tycho.xml -Dtarget.platform=m2e-e37-local -Dlocal.repo="" clean@
+
+Bump version:
+@mvn -X -s settings.tycho.xml -Dtarget.platform=m2e-e37-local org.eclipse.tycho:tycho-versions-plugin:0.14.0:set-version -DnewVersion=0.0.2-SNAPSHOT@
+
+Package:
+@mvn -X -s settings.tycho.xml -Dtarget.platform=m2e-e37-local package@
+
+You need to specify local.repo environment variable if you use supplied settings.tycho.xml file: 
+
+@mvn -X -s settings.tycho.xml -Dtarget.platform=m2e-e37-local -Dlocal.repo="C:\Java\eclipse\mirrors" package@
+
+h3. Using local mirrors
+
+mvn -s settings.tycho.xml -Dlocal.repo=file:///media/sda2/Java/eclipse/mirrors package
+
+
+
+h2. Setup development environment
 
 In order to speed up builds and have them reproducible on your own computer it's probably a good idea to mirror some of the eclipse p2 repositories locally on the development environment (developers computer or local network).
 
@@ -8,7 +42,7 @@ If you follow steps below creating local mirrors will cost you ~ 6GB.
 You can tune mirroring, but I would not recommend it.
 
 
-h2. Create eclipse mirror
+h3. Create eclipse mirror
  
 It's probably a good idea to mirror eclipse releases.
 
@@ -31,16 +65,16 @@ You will have to serve it through HTTP server (Apache is a good choice)
 artifacts.xml contains a reference to the eclipse site... ?!
 
 
-h2. Creating a p2 Repository from Features and Plugins
+h3. Creating a p2 Repository from Features and Plugins
 
 See "Creating a p2 Repository from Features and Plugins":http://maksim.sorokin.dk/it/2010/11/26/creating-a-p2-repository-from-features-and-plugins/ 
 
 
-h2. Setup local nexus instance 
+h3. Setup local nexus instance 
 
 See nexus documentation.
 
-h2. setup maven settings.xml
+h3. setup maven settings.xml
 
 You can use supplied settings.tycho.xml.
 Make sure you adjust mirrors:
@@ -81,28 +115,6 @@ Variable local.repo can be defined in the settins.tycho.xml file or you can pass
  
 Mirrors defined above will point to the local p2 repositories you may have created before using rsync.
 Alternatively you could use local http server (as @http://localhost/eclipse/indigo/m2e/releases@ in m2e mirror)
-
-
-h1. Release a new version
-
-h2. Using local mirrors
-
-Clean projects:
-@mvn -X -s settings.tycho.xml -Dtarget.platform=m2e-e37-local -Dlocal.repo="" clean@
-
-Bump version:
-@mvn -X -s settings.tycho.xml -Dtarget.platform=m2e-e37-local org.eclipse.tycho:tycho-versions-plugin:0.14.0:set-version -DnewVersion=0.0.2-SNAPSHOT@
-
-Package:
-@mvn -X -s settings.tycho.xml -Dtarget.platform=m2e-e37-local package@
-
-You need to specify local.repo environment variable if you use supplied settings.tycho.xml file: 
-
-@mvn -X -s settings.tycho.xml -Dtarget.platform=m2e-e37-local -Dlocal.repo="C:\Java\eclipse\mirrors" package@
-
-h2. Not using local mirrors
-
-
 
 h1. Notes
 
