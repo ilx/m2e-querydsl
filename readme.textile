@@ -1,7 +1,15 @@
-h1  Where to download
+h1.  Where to download
+
+If you just want to use this plugin click on the Downloads button on github and download the latest zip. It's an archived eclipse p2 update site. Donwload it and add to the list of eclipse updates sites just as you would do it with any other local archive of eclipse p2 update site.
+
+If this doesn't make any sense to you, read Eclipse Help section on this topic (Workbench user guide -> Updating and installing software)
+
 
 
 h1. Developers guide
+
+The rest of the document is for the brave souls that want to build this from scratch.
+It's not a finished step by step guide, so take it just as a hint.
 
 h2. Build
 
