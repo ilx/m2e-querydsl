@@ -1,6 +1,0 @@
-.class
-.project
-.classpath
-.settings/
-*/.project
-tycho-maven-repository/
