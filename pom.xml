@@ -3,19 +3,19 @@
     <parent>
         <artifactId>forge-parent</artifactId>
         <groupId>org.sonatype.forge</groupId>
-        <version>10</version>
+        <version>12</version>
     </parent>
     <groupId>org.maven.ide.querydsl</groupId>
     <artifactId>org.maven.ide.querydsl.parent</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Maven integration for QueryDSL apt plugin (Parent).</name>
     <description>Integrates QueryDSL apt processor with m2e lifecycle in eclipse.</description>
 
 
     <properties>
-        <tycho-version>0.14.0</tycho-version>
-        <tycho-versions>0.14.0</tycho-versions>
+        <tycho-version>0.15.0</tycho-version>
+        <tycho-versions>0.15.0</tycho-versions>
         <target.platform>m2e-e37</target.platform>
         <version.versions-maven-plugin>1.2</version.versions-maven-plugin>
     </properties>

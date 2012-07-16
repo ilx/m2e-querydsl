@@ -8,6 +8,7 @@
 		<versionRange>[1.0,)</versionRange>
         <goals>
           <goal>process</goal>
+          <goal>test-process</goal>
 		</goals>
       </pluginExecutionFilter>
       <action>

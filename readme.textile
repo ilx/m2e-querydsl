@@ -134,3 +134,8 @@ bc.
 mvn install --settings c:\user\settings.xml --global-settings c:\global\settings.xml
 
  
+
+h1. Linux build - local
+
+bc. 
+mvn -s settings.tycho.xml -Dtarget.platform=m2e-e37-local -Dlocal.repo=file:///media/sda2/Java/eclipse/mirrors -X org.eclipse.tycho:tycho-versions-plugin:0.15.0:set-version -DnewVersion=0.0.3-SNAPSHOT
