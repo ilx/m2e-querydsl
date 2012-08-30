@@ -22,7 +22,6 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
  * @author Ivica Loncar
  */
 public class QueryDslConfiguration {
-
     private static final String          PROCESSOR_JDO          = "com.mysema.query.apt.jdo.JDOAnnotationProcessor";
     private static final String          PROCESSOR_JPA          = "com.mysema.query.apt.jpa.JPAAnnotationProcessor";
     private static final String          PROCESSOR_HIBERNATE    = "com.mysema.query.apt.hibernate.HibernateAnnotationProcessor";
@@ -98,13 +97,27 @@ public class QueryDslConfiguration {
             Xpp3Dom processorElement = configuration.getChild("processor");
             if (processorElement != null) {
                 m_annotationProcessor = processorElement.getValue();
+                if (null == m_annotationProcessor) {
+                    String msg = String.format("Plugin %s:%s is not properly configured. Configuration element does not define processor value.", m_plugin.getGroupId(), m_plugin.getArtifactId());
+                	throw new IllegalStateException(msg);
+                }
                 ArtifactMetadata artifactMetadata = MAP_PROCESSORS_TO_ARTIFACTMETADATA.get(m_annotationProcessor);
-                processorArtifacts.add(artifactMetadata);
+                if (null != artifactMetadata) {
+                	processorArtifacts.add(artifactMetadata);
+                }
+                else {
+                	String msg = String.format("Plugin %s:%s is not properly configured. Unable to find artifact metadata for processor '%s'" , m_plugin.getGroupId(), m_plugin.getArtifactId(), m_annotationProcessor);
+                	throw new IllegalStateException(msg);
+                }
             }
+            else {
+                String msg = String.format("Plugin %s:%s is not properly configured. Configuration element does not define processor.", m_plugin.getGroupId(), m_plugin.getArtifactId());
+            	throw new IllegalStateException(msg);
+            }
+            	
         }
 
         m_processorArtifacts = processorArtifacts.toArray(new ArtifactMetadata[0]);
-
     }
 
 }
