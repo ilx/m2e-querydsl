@@ -7,7 +7,7 @@
     </parent>
     <groupId>org.maven.ide.querydsl</groupId>
     <artifactId>org.maven.ide.querydsl.parent</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <packaging>pom</packaging>
     <name>Maven integration for QueryDSL apt plugin (Parent).</name>
     <description>Integrates QueryDSL apt processor with m2e lifecycle in eclipse.</description>
