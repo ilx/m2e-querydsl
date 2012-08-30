@@ -1,8 +1,10 @@
 h1.  Where to download
 
-If you just want to use this plugin click on the Downloads button on github and download the latest zip. 
-Or just "click here":https://github.com/ilx/m2e-querydsl/downloads
-It's an archived eclipse p2 update site. Donwload it and add to the list of eclipse updates sites just as you would do it with any other local archive of eclipse p2 update site.
+
+Find latest eclipse p2 repo at: http://ilx.github.com/m2e-querydsl/
+
+It's a list of eclipse p2 update site. 
+Select one of the update sites and add it to the list of eclipse updates sites just as you would do it with any other local archive of eclipse p2 update site.
 
 If this doesn't make any sense to you, read Eclipse Help section on this topic (Workbench user guide -> Updating and installing software)
 
