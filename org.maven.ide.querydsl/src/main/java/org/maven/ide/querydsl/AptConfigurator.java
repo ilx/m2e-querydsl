@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.project.MavenProject;
@@ -26,9 +25,9 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.IMaven;
-import org.eclipse.m2e.core.project.IMavenProjectFacade;
 import org.eclipse.m2e.core.project.configurator.ProjectConfigurationRequest;
 import org.eclipse.m2e.jdt.AbstractJavaProjectConfigurator;
+import org.maven.ide.querydsl.internal.MavenFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,12 +59,12 @@ public class AptConfigurator extends AbstractJavaProjectConfigurator {
             IJavaProject javaProject = JavaCore.create(project);
             AptConfig.setEnabled(javaProject, true);
 
+            MavenFacade mavenFacade = new MavenFacade(p_request, p_monitor);            
             // Associate annotation processor jar. Since querydsl doesn't use generic apt plugin nor specifies extra dependencies we have to hardcode it.
-            QueryDslConfiguration queryDslConfiguration = getQueryDslConfiguration(p_request, p_monitor);
+            QueryDslConfiguration queryDslConfiguration = getQueryDslConfiguration(mavenFacade);
             // IRepositoryRegistry repositoryRegistry = MavenPlugin.getRepositoryRegistry();
             // List<IRepository> repositories = repositoryRegistry.getRepositories(IRepositoryRegistry.SCOPE_LOCAL | IRepositoryRegistry.SCOPE_SETTINGS | IRepositoryRegistry.SCOPE_PROJECT);
 
-            List<ArtifactRepository> remoteArtifactRepositories = p_request.getMavenProject().getRemoteArtifactRepositories();
             IMaven maven = MavenPlugin.getMaven();
 
             IPath m2RepoVar = JavaCore.getClasspathVariable(M2_REPO);
@@ -73,8 +72,7 @@ public class AptConfigurator extends AbstractJavaProjectConfigurator {
 
             ArtifactMetadata[] artifactsMetadata = queryDslConfiguration.getProcessorArtifacts();
             for (ArtifactMetadata artifactMetadata : artifactsMetadata) {
-                Artifact artifact = maven.resolve(artifactMetadata.getGroupId(), artifactMetadata.getArtifactId(), artifactMetadata.getVersion(), artifactMetadata.getType(),
-                        artifactMetadata.getClassifier(), remoteArtifactRepositories, p_monitor);
+            	Artifact artifact = mavenFacade.resolve(artifactMetadata);
 
                 File file = artifact.getFile();
                 if ((file == null) || !file.exists() || !file.canRead()) {
@@ -104,9 +102,8 @@ public class AptConfigurator extends AbstractJavaProjectConfigurator {
         }
     }
 
-    private QueryDslConfiguration getQueryDslConfiguration(final ProjectConfigurationRequest p_request, final IProgressMonitor p_monitor) throws CoreException {
-        IMavenProjectFacade projectFacade = p_request.getMavenProjectFacade();
-        MavenProject mavenProject = projectFacade.getMavenProject(p_monitor);
+    private QueryDslConfiguration getQueryDslConfiguration(final MavenFacade p_mavenFacade) throws CoreException {
+    	MavenProject mavenProject = p_mavenFacade.getMavenProject();
 
         // find querydsl version so we can resolve matching one-jar from repo
         String queryDslVersion = "0.0.0";
@@ -119,7 +116,7 @@ public class AptConfigurator extends AbstractJavaProjectConfigurator {
         }
 
         Plugin queryDslPlugin = mavenProject.getPlugin("com.mysema.maven:maven-apt-plugin");
-        QueryDslConfiguration queryDslConfiguration = new QueryDslConfiguration(queryDslPlugin, queryDslVersion);
+        QueryDslConfiguration queryDslConfiguration = new QueryDslConfiguration(queryDslPlugin, queryDslVersion, p_mavenFacade);
 
         return queryDslConfiguration;
     }
