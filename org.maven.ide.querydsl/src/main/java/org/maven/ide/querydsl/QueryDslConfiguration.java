@@ -132,11 +132,12 @@ public class QueryDslConfiguration {
                         String msg = MessageUtils.info(m_plugin, "Unable to find artifact metadata for processor '%s'", m_annotationProcessor);
                         log.warn(msg);
                         // Alternative: just add defined dependencies and let us hope everything will work
-                        // processorArtifacts.addAll(pluginDependenciesAsArtifacts());
                         
                         // we can't handle this scenario
                         throw new IllegalStateException(msg);
                     }
+                    // finally: add all plugin dependencies
+                    processorArtifacts.addAll(pluginDependenciesAsArtifacts());
                 }
             }
             else {
