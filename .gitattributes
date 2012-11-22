@@ -1,0 +1,17 @@
+# 
+* text=auto
+
+# java, xml
+*.java text 
+# eol=lf
+*.xml  text 
+# eol=lf
+
+# binary
+*.class binary
+*.jar   binary
+*.jpeg  binary
+*.xmi   binary
+*.gif   binary
+*.png   binary
+
