@@ -14,8 +14,8 @@
 
 
     <properties>
-        <tycho-version>0.15.0</tycho-version>
-        <tycho-versions>0.15.0</tycho-versions>
+        <tycho-version>0.16.0</tycho-version>
+        <tycho-versions>0.16.0</tycho-versions>
         <target.platform>m2e-e37</target.platform>
         <version.versions-maven-plugin>1.2</version.versions-maven-plugin>
     </properties>
