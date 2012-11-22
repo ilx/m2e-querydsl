@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.6"?>
+
+<target name="m2e-e38" sequenceNumber="13">
+<locations>
+	<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20120526062928/repository" />
+	</location>
+
+	<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<unit id="org.eclipse.jdt.feature.group" />	
+		<unit id="org.eclipse.sdk.ide" />
+		<repository location="http://download.eclipse.org/eclipse/updates/3.8" />
+	</location>
+
+</locations>
+</target>
